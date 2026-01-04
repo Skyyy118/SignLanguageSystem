@@ -1,4 +1,14 @@
+# Virtual Environment
 venv/
 __pycache__/
 *.pyc
-.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+
+# Model files (later we will use LFS)
+*.h5
