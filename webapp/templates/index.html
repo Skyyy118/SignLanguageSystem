@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>SignTranslate</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+
+<header class="header">
+<h1 class="title">SignTranslate</h1>
+</header>
+
+
+<div class="dashboard">
+
+
+<!-- CAMERA CARD -->
+
+<div class="card camera-card">
+
+<div class="camera-header">
+<span class="live-dot"></span>
+Live Camera
+</div>
+
+<img src="/video" class="camera-feed">
+
+</div>
+
+
+
+<!-- TRANSLATION CARD -->
+
+<div class="card translation-card">
+
+<h2>Translation</h2>
+
+<div id="translatedText" class="translated-text">
+Waiting...
+</div>
+
+
+<button class="speak-btn" onclick="speakSentence()">
+Speak Out Loud
+</button>
+
+
+
+<div class="controls">
+
+<button id="alphabetBtn" onclick="startAlphabet()">
+A-Y Mode
+</button>
+
+<button id="wordBtn" onclick="startWords()">
+Word Mode
+</button>
+
+<button id="stopBtn" onclick="stopAll()">
+Stop
+</button>
+
+</div>
+
+
+<div id="modeIndicator" class="mode-indicator">
+Mode: Idle
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<!-- SENTENCE BUILDER -->
+
+<div class="sentence-dock">
+
+<div id="sentenceText" class="sentence-text">
+Start signing...
+</div>
+
+<div class="sentence-actions">
+
+<button onclick="clearSentence()">🗑</button>
+
+<button onclick="navigator.clipboard.writeText(
+document.getElementById('sentenceText').innerText
+)">📋</button>
+
+</div>
+
+</div>
+
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>

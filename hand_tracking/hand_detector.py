@@ -3,27 +3,38 @@ import mediapipe as mp
 
 
 class HandDetector:
-    def __init__(self, max_hands=1, detection_conf=0.7, tracking_conf=0.7):
+
+    def __init__(self):
+
         self.mp_hands = mp.solutions.hands
-        self.mp_draw = mp.solutions.drawing_utils
 
         self.hands = self.mp_hands.Hands(
-            max_num_hands=max_hands,
-            min_detection_confidence=detection_conf,
-            min_tracking_confidence=tracking_conf
+            static_image_mode=False,
+            max_num_hands=1,
+            min_detection_confidence=0.7,
+            min_tracking_confidence=0.7
         )
 
+        self.mp_draw = mp.solutions.drawing_utils
+
     def detect(self, frame):
-        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        results = self.hands.process(rgb_frame)
+
+        img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        results = self.hands.process(img_rgb)
+
+        landmarks = None
 
         if results.multi_hand_landmarks:
-            for hand_landmarks in results.multi_hand_landmarks:
+
+            landmarks = results.multi_hand_landmarks
+
+            for hand_landmarks in landmarks:
+
                 self.mp_draw.draw_landmarks(
                     frame,
                     hand_landmarks,
                     self.mp_hands.HAND_CONNECTIONS
                 )
 
-        # IMPORTANT: Return list of hand landmarks (or None)
-        return frame, results.multi_hand_landmarks
+        return frame, landmarks

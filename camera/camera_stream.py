@@ -16,7 +16,6 @@ def save_to_csv(label, data):
     with open(DATASET_PATH, mode='a', newline='') as f:
         writer = csv.writer(f)
 
-        # Write header only if file doesn't exist
         if not file_exists:
             header = ["label"] + [f"f{i}" for i in range(63)]
             writer.writerow(header)
@@ -25,17 +24,21 @@ def save_to_csv(label, data):
 
 
 def start_camera():
+
     cap = cv2.VideoCapture(0)
     detector = HandDetector()
 
     current_label = None
-    data = None  # 👈 store latest features safely
+    data = None
 
-    print("Press a / b / c to select gesture label")
-    print("Press s to save sample")
-    print("Press q to quit")
+    print("Press a–i, k–y to select gesture label")
+    print("Press 1 to save sample")
+    print("Press 2 to quit")
+
+    cv2.namedWindow("Dataset Collection", cv2.WINDOW_NORMAL)
 
     while True:
+
         ret, frame = cap.read()
         if not ret:
             break
@@ -44,6 +47,7 @@ def start_camera():
 
         if landmarks is not None:
             for hand_landmarks in landmarks:
+
                 data = extract_landmarks(hand_landmarks)
 
                 if current_label:
@@ -61,28 +65,84 @@ def start_camera():
 
         key = cv2.waitKey(1) & 0xFF
 
-        # Select label (lowercase only)
+        # A–I
         if key == ord('a'):
             current_label = "A"
-            print("Selected Label: A")
-
         elif key == ord('b'):
             current_label = "B"
-            print("Selected Label: B")
-
         elif key == ord('c'):
             current_label = "C"
-            print("Selected Label: C")
+        elif key == ord('d'):
+            current_label = "D"
+        elif key == ord('e'):
+            current_label = "E"
+        elif key == ord('f'):
+            current_label = "F"
+        elif key == ord('g'):
+            current_label = "G"
+        elif key == ord('h'):
+            current_label = "H"
+        elif key == ord('i'):
+            current_label = "I"
 
-        # Save sample safely
+        # Skip J
+
+        # K–M
+        elif key == ord('k'):
+            current_label = "K"
+        elif key == ord('l'):
+            current_label = "L"
+        elif key == ord('m'):
+            current_label = "M"
+
+        # N–P
+        elif key == ord('n'):
+            current_label = "N"
+        elif key == ord('o'):
+            current_label = "O"
+        elif key == ord('p'):
+            current_label = "P"
+
+        # Q–S
+        elif key == ord('q'):
+            current_label = "Q"
+        elif key == ord('r'):
+            current_label = "R"
         elif key == ord('s'):
+            current_label = "S"
+
+        # T–V
+        elif key == ord('t'):
+            current_label = "T"
+        elif key == ord('u'):
+            current_label = "U"
+        elif key == ord('v'):
+            current_label = "V"
+
+        # W–Y (NEW)
+        elif key == ord('w'):
+            current_label = "W"
+        elif key == ord('x'):
+            current_label = "X"
+        elif key == ord('y'):
+            current_label = "Y"
+
+        # Print selected label
+        if key >= ord('a') and key <= ord('z'):
+            if current_label:
+                print(f"Selected Label: {current_label}")
+
+        # Save sample
+        elif key == ord('1'):
+
             if data is not None and current_label is not None:
                 save_to_csv(current_label, data)
                 print(f"Saved sample for {current_label}")
             else:
                 print("No hand detected or label not selected")
 
-        elif key == ord('q'):
+        # Quit
+        elif key == ord('2'):
             break
 
     cap.release()

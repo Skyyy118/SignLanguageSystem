@@ -1,7 +1,5 @@
 venv/
 __pycache__/
+dataset/
+models/
 *.pyc
-*.pyo
-*.pyd
-*.db
-.DS_Store

@@ -1,0 +1,6 @@
+[33m4b38b4f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Initial commit - ASL Sign Recognition System
+[33m012327b[m Remove venv from tracking
+[33md5915a2[m Merge branch 'main' of https://github.com/Skyyy118/SignLanguageSystem :wq:wq# the commit.
+[33m8418c01[m Initial clean setup
+[33m9c68d6b[m Removed venv and added gitignore
+[33mf75b718[m Initial project setup
